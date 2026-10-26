@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="pocketai-token" content="{{SESSION_TOKEN}}">
+<title>PocketAI USB</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/css/style.css">
+<script type="module" src="/static/js/app.js"></script>
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="5" width="2" height="3" fill="currentColor"/><rect x="13" y="5" width="2" height="3" fill="currentColor"/><circle cx="12" cy="15" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </span>
+      <span>PocketAI <small>USB</small></span>
+    </div>
+
+    <button class="btn primary block" id="newChatBtn" title="New chat (Ctrl+Shift+O)">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      New chat
+    </button>
+
+    <nav class="nav" aria-label="Sections">
+      <button class="nav-item active" data-view="chat" title="Alt+1">Chat</button>
+      <button class="nav-item" data-view="models" title="Alt+2">AI Models</button>
+      <button class="nav-item" data-view="tools" title="Alt+3">Developer Tools</button>
+      <button class="nav-item" data-view="system" title="Alt+4">System Monitor</button>
+      <button class="nav-item" data-view="settings" title="Alt+5">Settings</button>
+    </nav>
+
+    <div class="history-head">Chat history</div>
+    <input class="input" type="search" id="historySearch" placeholder="Search chats  (Ctrl+K)" autocomplete="off" aria-label="Search chat history">
+    <ul class="history" id="historyList" aria-label="Conversations"></ul>
+
+    <div class="sidebar-foot">
+      <span class="offline-dot" aria-hidden="true"></span> Offline &middot; data stays on this drive
+    </div>
+  </aside>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn" id="sidebarToggle" aria-label="Toggle sidebar" title="Toggle sidebar (Ctrl+B)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <h1 class="view-title" id="viewTitle">Chat</h1>
+      <div class="spacer"></div>
+      <button class="pill" id="modelPill" title="Model status - click to manage models">
+        <span class="dot" id="modelDot"></span><span id="modelPillText">Checking model...</span>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle theme (Ctrl+Shift+L)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3a9 9 0 1 0 9 9A7 7 0 0 1 12 3z" fill="currentColor"/></svg>
+      </button>
+    </header>
+
+    <!-- Chat -->
+    <section class="view active" id="view-chat" aria-label="Chat">
+      <div class="messages" id="messages" aria-live="polite"></div>
+      <div class="composer">
+        <div class="composer-box">
+          <textarea id="input" rows="1" placeholder="Message PocketAI..." aria-label="Message"></textarea>
+          <div class="composer-row">
+            <label class="mode-label">Mode
+              <select id="modeSelect" class="select small" aria-label="Assistant mode"></select>
+            </label>
+            <span class="gen-status" id="genStatus" aria-live="polite"></span>
+            <button class="btn danger" id="stopBtn" hidden title="Stop generating (Esc)">
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg>
+              Stop
+            </button>
+            <button class="btn primary" id="sendBtn" title="Send (Enter)">
+              Send
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M4 12l16-8-6 16-2-7-8-1z" fill="currentColor"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="composer-hint">Enter to send &middot; Shift+Enter for a new line &middot; Runs offline &middot; AI answers can be wrong</div>
+      </div>
+    </section>
+
+    <section class="view scroll" id="view-models" aria-label="AI Models"></section>
+    <section class="view scroll" id="view-tools" aria-label="Developer Tools"></section>
+    <section class="view scroll" id="view-system" aria-label="System Monitor"></section>
+    <section class="view scroll" id="view-settings" aria-label="Settings"></section>
+  </main>
+</div>
+
+<div class="toasts" id="toasts" aria-live="assertive"></div>
+
+<dialog class="dialog" id="dialog">
+  <form method="dialog" class="dialog-form">
+    <h2 id="dialogTitle"></h2>
+    <div id="dialogBody" class="dialog-body"></div>
+    <input class="input" id="dialogInput" hidden>
+    <div class="dialog-actions">
+      <button class="btn" value="cancel" id="dialogCancel">Cancel</button>
+      <button class="btn primary" value="ok" id="dialogOk">OK</button>
+    </div>
+  </form>
+</dialog>
+</body>
+</html>

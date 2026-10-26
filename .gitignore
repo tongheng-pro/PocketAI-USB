@@ -1,0 +1,9 @@
+# Large or machine-specific files that setup recreates
+runtime/
+models/*.gguf
+models/*.part
+database/
+logs/
+config/settings.json
+__pycache__/
+*.pyc

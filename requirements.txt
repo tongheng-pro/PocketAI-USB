@@ -1,0 +1,7 @@
+# Runtime dependencies (installed per-OS into runtime/<os>/site-packages by scripts/setup.py).
+# Pinned for reproducible Windows and Linux runtimes. Uvicorn is installed WITHOUT [standard]
+# extras on purpose: no uvloop/httptools/watchfiles, fewer compiled wheels to carry on the USB.
+fastapi==0.162.0
+uvicorn==0.54.0
+pydantic==2.14.1
+psutil==7.2.2
